@@ -8,7 +8,7 @@ function Cart({ removeFromCart, checkout }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/cart", {
+    fetch("https://aded34ci4999.ngrok-free.app", {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -28,7 +28,7 @@ function Cart({ removeFromCart, checkout }) {
   }, []);
 
   const handleRemoveFromCart = (productId) => {
-    fetch(`http://localhost:8000/remove-from-cart/${productId}`, {
+    fetch(`https://aded34ci4999.ngrok-free.app`, {
       method: "DELETE",
       credentials: "include",
     })

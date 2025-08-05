@@ -7,7 +7,7 @@ export function UserProvider({ children }) {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch("http://localhost:8000/user", {
+      const res = await fetch("https://aded34ci4999.ngrok-free.app", {
         credentials: "include",
       });
 

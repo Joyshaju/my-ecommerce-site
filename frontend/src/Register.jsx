@@ -22,7 +22,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/register", {
+      const response = await fetch("https://aded34ci4999.ngrok-free.app", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

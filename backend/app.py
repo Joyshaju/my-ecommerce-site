@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask import session
@@ -9,17 +12,18 @@ from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:5173"}})
+frontend_origin = os.environ.get('FRONTEND_ORIGIN', 'http://localhost:5173')
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": frontend_origin}})
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/e_com'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'supersecretkey'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False  
@@ -235,5 +239,6 @@ def remove_from_cart(product_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    print("Backend server running at http://localhost:8000")
-    app.run(port=8000, debug=True)
+    port = int(os.environ.get('PORT', 8000))
+    print(f"Backend running on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=True)

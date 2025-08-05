@@ -4,7 +4,7 @@ function Products({ addToCart }) {
   const [products, setProducts] = useState([]);
   
   useEffect(() => {
-    fetch("http://localhost:8000/products")
+    fetch("https://aded34ci4999.ngrok-free.app")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched products:", data); 
@@ -13,7 +13,7 @@ function Products({ addToCart }) {
   }, []);
   const handleAddToCart = (product) => {
     addToCart(product);
-    fetch("http://localhost:8000/add-to-cart", {
+    fetch("https://aded34ci4999.ngrok-free.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials:"include",

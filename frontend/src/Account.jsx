@@ -3,6 +3,7 @@ import { useUser } from "./UserContext";
 import { useNavigate } from "react-router-dom";
 
 function Account() {
+  const apiBase = import.meta.env.VITE_API_URL; 
   const [user, setUser] = useState({});
   const [edit, setEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
@@ -10,7 +11,7 @@ function Account() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/user", {
+    fetch("https://aded34ci4999.ngrok-free.app", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -18,7 +19,7 @@ function Account() {
   }, []);
 
   const handleLogout = async () => {
-    const res = await fetch("http://localhost:8000/logout", {
+    const res = await fetch("https://aded34ci4999.ngrok-free.app", {
       method: "POST",
       credentials: "include",
     });
@@ -33,7 +34,7 @@ function Account() {
   };
 
   const handleUpdate = () => {
-    fetch("http://localhost:8000/user", {
+    fetch("https://aded34ci4999.ngrok-free.app", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -57,7 +58,7 @@ function Account() {
     const formData = new FormData();
     formData.append("image", imageFile);
 
-    const res = await fetch("http://localhost:8000/upload-profile-image", {
+    const res = await fetch("https://aded34ci4999.ngrok-free.app", {
       method: "POST",
       credentials: "include",
       body: formData,
@@ -67,7 +68,7 @@ function Account() {
     alert(data.message || "Upload successful");
 
     await refreshUser(); 
-    const refreshed = await fetch("http://localhost:8000/user", {
+    const refreshed = await fetch("https://aded34ci4999.ngrok-free.app", {
       credentials: "include",
     });
     const userData = await refreshed.json();

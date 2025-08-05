@@ -13,7 +13,7 @@ const handleLogin = async (e) => {
 
   if (email && password) {
     try {
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("https://aded34ci4999.ngrok-free.app", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +25,7 @@ const handleLogin = async (e) => {
       const data = await response.json();
 
       if (response.ok) {
-        const userRes = await fetch("http://localhost:8000/user", {
+        const userRes = await fetch("https://aded34ci4999.ngrok-free.app", {
           credentials: "include",
         });
 
